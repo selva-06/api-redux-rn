@@ -33,4 +33,17 @@ export const cryptoStyles = StyleSheet.create({
     width: 100,
     height: 100,
   },
+  rightActionContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 80,
+    backgroundColor: 'red',
+    marginVertical: 5,
+    marginRight: 10,
+    borderRadius: 5,
+  },
+  rightActionText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });

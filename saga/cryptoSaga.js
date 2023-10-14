@@ -1,7 +1,13 @@
 // cryptoSaga.js
 import {call, put, takeLatest} from 'redux-saga/effects';
 import axios from 'axios';
-import {SET_CRYPTO_DATA, setCryptoData} from '../actions/counterActions';
+import {
+  SET_CRYPTO_DATA,
+  setCryptoData,
+  DELETE_CRYPTO_ITEM,
+} from '../actions/counterActions';
+import {Alert} from 'react-native';
+
 function* fetchDataSaga() {
   try {
     const response = yield call(

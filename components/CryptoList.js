@@ -4,38 +4,44 @@ import {View, Text, FlatList, Image, RefreshControl} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 import {setCryptoData} from '../actions/counterActions';
+import {fetchCryptoData} from '../actions/counterActions';
 import {cryptoStyles} from '../styles/screenStyles';
+import SwipeableItem from '../SwipeableItem';
 
 const CryptoList = () => {
   const dispatch = useDispatch();
   const cryptoData = useSelector(state => state.cryptoData);
   const refreshing = useSelector(state => state.refreshing);
 
-  const fetchData = () => {
-    axios
-      .get('https://api.coingecko.com/api/v3/coins/markets', {
-        params: {
-          vs_currency: 'inr',
-          order: 'name',
-          per_page: 100,
-          page: 1,
-          sparkline: false,
-        },
-      })
-      .then(response => {
-        dispatch(setCryptoData(response.data));
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  };
-
   useEffect(() => {
-    fetchData();
-  }, []);
+    dispatch(fetchCryptoData()); // Trigger the saga
+  }, [dispatch]);
+
+  // const fetchData = () => {
+  //   axios
+  //     .get('https://api.coingecko.com/api/v3/coins/markets', {
+  //       params: {
+  //         vs_currency: 'inr',
+  //         order: 'name',
+  //         per_page: 100,
+  //         page: 1,
+  //         sparkline: false,
+  //       },
+  //     })
+  //     .then(response => {
+  //       dispatch(setCryptoData(response.data));
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching data:', error);
+  //     });
+  // };
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const onRefresh = () => {
-    fetchData();
+    dispatch(fetchCryptoData());
   };
 
   return (
