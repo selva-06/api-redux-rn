@@ -6,23 +6,20 @@ import {
   setCryptoData,
   DELETE_CRYPTO_ITEM,
 } from '../actions/counterActions';
+import ApiToolKit from '../Api/ApiToolKit';
 import {Alert} from 'react-native';
 
 function* fetchDataSaga() {
   try {
-    const response = yield call(
-      axios.get,
-      'https://api.coingecko.com/api/v3/coins/markets',
-      {
-        params: {
-          vs_currency: 'inr',
-          order: 'name',
-          per_page: 100,
-          page: 1,
-          sparkline: false,
-        },
+    const response = yield call(ApiToolKit.get, '/coins/markets', {
+      params: {
+        vs_currency: 'inr',
+        order: 'market_cap_desc',
+        per_page: 100,
+        page: 1,
+        sparkline: false,
       },
-    );
+    });
     yield put(setCryptoData(response.data));
   } catch (error) {
     console.error('Error fetching data:', error);
