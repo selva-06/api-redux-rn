@@ -143,9 +143,20 @@ const App = () => {
         renderItem={({item}) => (
           <Swipeable
             renderRightActions={() => (
-              <TouchableOpacity onPress={() => handleDelete(item.id)}>
+              <TouchableOpacity
+                style={cryptoStyles.rightActionContainer}
+                onPress={() => handleDelete(item.id)}>
                 <View>
-                  <Text>Delete</Text>
+                  <Text style={cryptoStyles.rightActionText}>Delete</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+            renderLeftActions={() => (
+              <TouchableOpacity
+                style={cryptoStyles.rightActionContainer}
+                onPress={() => handleDelete(item.id)}>
+                <View>
+                  <Text style={cryptoStyles.rightActionText}>Delete</Text>
                 </View>
               </TouchableOpacity>
             )}>

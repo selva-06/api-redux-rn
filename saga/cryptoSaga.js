@@ -49,14 +49,19 @@ import {
   fetchDataSuccess,
   fetchDataFailure,
 } from '../actions/counterActions';
-
+import ApiToolKit from '../Api/ApiToolKit';
 function* fetchDataSaga() {
   console.log('Saga triggered');
   try {
-    const response = yield call(
-      axios.get,
-      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=100&page=1&sparkline=false',
-    );
+    const response = yield call(ApiToolKit.get, '/coins/markets', {
+      params: {
+        vs_currency: 'inr',
+        order: 'market_cap_desc',
+        per_page: 100,
+        page: 1,
+        sparkline: false,
+      },
+    });
     yield put(fetchDataSuccess(response.data));
   } catch (error) {
     yield put(fetchDataFailure(error));
