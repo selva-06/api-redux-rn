@@ -111,7 +111,7 @@ import {
   RefreshControl,
 } from 'react-native'; // Added Image import
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchData} from '../actions/counterActions';
+import {fetchData, fetchDataRequest} from '../actions/counterActions';
 import {cryptoStyles} from '../styles/screenStyles';
 import {removeCryptoItem} from '../actions/counterActions';
 import {Swipeable} from 'react-native-gesture-handler';
@@ -121,14 +121,28 @@ const App = () => {
   const data = useSelector(state => state.data);
   const error = useSelector(state => state.error);
   const refreshing = useSelector(state => state.refreshing);
-  // useEffect(() => {
-  //   dispatch(fetchData());
-  // }, [dispatch]);
+  const loading = useSelector(state => state.loading);
+  useEffect(() => {
+    dispatch(fetchDataRequest());
+    dispatch(fetchData());
+  }, []);
   const handleDelete = id => {
     dispatch(removeCryptoItem(id)); // Dispatch the action to remove the item
+    // Toast.show({
+    //   type: 'success',
+    //   text1: 'Delete Successful',
+    //   visibilityTime: 3000,
+    //   autoHide: true,
+    // });
   };
   const onRefresh = () => {
     dispatch(fetchData());
+    // Toast.show({
+    //   type: 'success',
+    //   text1: 'Fetch Successful',
+    //   visibilityTime: 3000,
+    //   autoHide: true,
+    // });
   };
   return (
     <View style={cryptoStyles.container}>
@@ -136,7 +150,9 @@ const App = () => {
         Top 100 Cryptocurrencies by Market Cap
       </Text>
       <Button title="Refresh Data" onPress={() => dispatch(fetchData())} />
-
+      <Text style={cryptoStyles.rightActionText}>
+        {loading ? 'Loading....' : ''}
+      </Text>
       <FlatList
         data={data}
         keyExtractor={item => item.id}
@@ -179,6 +195,7 @@ const App = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       />
+      {/* <Toast ref={ref => Toast.setRef(ref)} /> */}
     </View>
   );
 };

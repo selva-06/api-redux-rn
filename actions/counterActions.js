@@ -17,6 +17,7 @@
 export const FETCH_DATA = 'FETCH_DATA';
 export const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS';
 export const FETCH_DATA_FAILURE = 'FETCH_DATA_FAILURE';
+export const FETCH_DATA_REQUEST = 'FETCH_DATA_REQUEST';
 
 export const fetchData = () => ({
   type: FETCH_DATA,
@@ -36,4 +37,8 @@ export const REMOVE_CRYPTO_ITEM = 'REMOVE_CRYPTO_ITEM';
 export const removeCryptoItem = id => ({
   type: REMOVE_CRYPTO_ITEM,
   payload: id,
+});
+
+export const fetchDataRequest = () => ({
+  type: FETCH_DATA_REQUEST,
 });

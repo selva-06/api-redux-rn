@@ -31,27 +31,36 @@ import {
   FETCH_DATA_SUCCESS,
   FETCH_DATA_FAILURE,
   REMOVE_CRYPTO_ITEM,
+  FETCH_DATA_REQUEST,
 } from '../actions/counterActions';
 
 const initialState = {
   data: [],
   error: null,
   refreshing: false,
+  loading: false,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_DATA_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
     case FETCH_DATA_SUCCESS:
       return {
         ...state,
         data: action.payload,
         error: null,
+        loading: false,
       };
     case FETCH_DATA_FAILURE:
       return {
         ...state,
         data: [],
         error: action.payload,
+        loading: false,
       };
     case REMOVE_CRYPTO_ITEM:
       return {
